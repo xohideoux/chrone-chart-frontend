@@ -1,22 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { authRoutes, publicRoutes } from '../routes';
 import { ROUTES } from '../constants';
-import { useContext } from 'react';
-import { Context } from '../main';
+import { useUser } from '../hooks/user';
 
 const AppRouter = () => {
-  const context = useContext(Context);
-
-  if (!context) {
-    throw new Error('Context is not defined');
-  }
-
-  const user = context.user;
-  console.log(user);
+  const user = useUser();
 
   return (
     <Routes>
-      {user.isAuth && authRoutes.map(({ path, Component }, index: number) => (
+      {authRoutes.map(({ path, Component }, index: number) => (
         <Route
           key={`auth_route_${index}`}
           path={path}

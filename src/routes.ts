@@ -11,7 +11,11 @@ export const authRoutes = [
 
 export const publicRoutes = [
   {
-    path: ROUTES.auth,
+    path: ROUTES.login,
     Component: Auth
-  }
+  },
+  {
+    path: ROUTES.signUp,
+    Component: Auth
+  },
 ];
