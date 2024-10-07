@@ -1,0 +1,27 @@
+/* Containers */
+
+.flex_center {
+  @apply flex justify-center items-center;
+}
+
+.flex_between {
+  @apply flex justify-between items-center;
+}
+
+.flex_col {
+  @apply flex flex-col;
+}
+
+/* UI */
+
+.text_input {
+  @apply px-4 py-3 bg-slate-200 rounded-xl;
+}
+
+.button {
+  @apply flex justify-center items-center rounded-2xl uppercase;
+}
+
+.button.rose {
+  @apply bg-rose-500 hover:bg-rose-600 text-white font-medium; 
+}
