@@ -1,12 +1,13 @@
 
-import { ChangeEvent, Dispatch, memo, SetStateAction, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDebounce } from '../hooks/debounce';
 import { DateIcon } from '../icons';
 import { formatDateInputValue } from '../utils';
+import { Filters } from '../types';
 
 interface DateInputProps {
   label: string,
-  setFilters: Dispatch<SetStateAction<any>>,
+  setFilters: Dispatch<SetStateAction<Filters>>,
 }
 
 const DateInput = ({ label, setFilters }: DateInputProps) => {
@@ -18,7 +19,7 @@ const DateInput = ({ label, setFilters }: DateInputProps) => {
   };
 
   useEffect(() => {
-    setFilters((prev: any) => ({ ...prev, [label]: debouncedValue }));
+    setFilters((prev: Filters) => ({ ...prev, [label]: debouncedValue }));
   }, [debouncedValue, label, setFilters]);
 
   return (

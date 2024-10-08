@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { CrossIcon, LabelIcon, ShevronIcon } from '../icons';
 import { STATUSES } from '../constants';
-import { Status } from '../types';
+import { Filters, Status } from '../types';
 
 const initialValue = 'Status';
 
 interface DropdownProps {
-  setFilters: Dispatch<SetStateAction<any>>,
+  setFilters: Dispatch<SetStateAction<Filters>>,
 }
 
 const Dropdown = ({ setFilters }: DropdownProps) => {
@@ -18,14 +18,14 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
   }
 
   const handleOptionClick = (option: Status) => {
-    setFilters((prev: any) => ({ ...prev, status: option.label }));
+    setFilters((prev: Filters) => ({ ...prev, status: option.label }));
     setValue(option.label);
     setDropdown(false);
   }
 
   const resetValue = () => {
     setValue(initialValue);
-    setFilters((prev: any) => ({ ...prev, status: '' }));
+    setFilters((prev: Filters) => ({ ...prev, status: '' }));
   }
   return (
     <div className='relative'>
@@ -33,7 +33,10 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
         <LabelIcon />
       </div>
       <div
-        className='filter_input dropdown'
+        className={`
+          ${value === initialValue && 'text-black-400'}
+          filter_input dropdown
+        `}
       >
         {value}
       </div>
@@ -52,7 +55,7 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
             <li
               key={`status_${key}`}
               onClick={() => handleOptionClick({ key, label })}
-              className='hover:text-accent cursor-pointer'
+              className='text-black-400 hover:text-accent cursor-pointer'
             >
               {label}
             </li>

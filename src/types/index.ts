@@ -27,3 +27,9 @@ export interface Status {
   key: number,
   label: string,
 }
+
+export interface Filters {
+  status: string,
+  date_from: string,
+  date_to: string;
+}

@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 import { DateInput, Dropdown } from '../ui';
+import { Filters } from '../types';
 
 interface FiltersProps {
-  label: any,
-  setFilters: Dispatch<SetStateAction<any>>,
+  setFilters: Dispatch<SetStateAction<Filters>>,
 }
 
-const Filters = ({ filters, setFilters }: FiltersProps) => {
+const FiltersSection = ({ setFilters }: FiltersProps) => {
   return (
     <section className='w-full flex items-center flex-wrap gap-8 rounded-xl'>
       <div className='flex_between flex-wrap gap-4'>
@@ -18,4 +18,4 @@ const Filters = ({ filters, setFilters }: FiltersProps) => {
   )
 }
 
-export default Filters;
+export default FiltersSection;

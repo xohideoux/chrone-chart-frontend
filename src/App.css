@@ -27,7 +27,7 @@
 }
 
 .filter_input.dropdown {
-  @apply whitespace-nowrap h-10 pr-10 text-black-400;
+  @apply whitespace-nowrap h-10 pr-10;
 }
 
 .button {
