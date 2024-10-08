@@ -2,11 +2,12 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Navigate, useLocation, Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import illustration from '../assets/login-illustration.png';
 import { useUser } from '../hooks/user';
-import { ROUTES } from '../constants';
+import { ROUTE } from '../constants';
 import { registration, login } from '../http/userApi';
-import Alert from '../components/Alert';
+import { AuthResponse } from '../types';
+import illustration from '../assets/login-illustration.png';
+import { Alert } from '../components/';
 
 const emptyForm = {
   email: '',
@@ -16,7 +17,7 @@ const emptyForm = {
 const Auth = observer(() => {
   const user = useUser();
   const location = useLocation();
-  const isLogin = location.pathname === ROUTES.login;
+  const isLogin = location.pathname === ROUTE.login;
 
   const [form, setForm] = useState(emptyForm);
   const [isAlert, setIsAlert] = useState(false);
@@ -31,7 +32,7 @@ const Auth = observer(() => {
 
   const makeRegistratinReq = async () => {
     await registration(form.email, form.password)
-      .then((resp) => {
+      .then((resp: AuthResponse) => {
         setAlertMessage(resp.data.message);
         setIsAlert(true)
       })
@@ -65,12 +66,12 @@ const Auth = observer(() => {
   }
 
   if (user.isAuth) {
-    return <Navigate to={ROUTES.dashboard} />;
+    return <Navigate to={ROUTE.dashboard} />;
   }
 
   return (
     <main className='flex_between w-full h-screen'>
-      <div className='flex_center w-full md:w-1/3 h-full px-8 lg:px-16 bg-slate-100 shadow-sm'>
+      <div className='flex_center w-full md:w-1/3 h-full px-8 lg:px-16 bg-black-100 shadow-sm'>
         <form className='flex_col w-full max-w-80' onSubmit={onFormSubmit}>
           <h1 className='text-3xl px-0.5'>
             {isLogin ? 'Login' : 'Sign Up'}
@@ -99,8 +100,8 @@ const Auth = observer(() => {
           <div className='flex gap-1 mt-4 self-center'>
             <span>{isLogin ? 'No account?' : 'Already registered?'}</span>
             <Link
-              to={isLogin ? ROUTES.signUp : ROUTES.login}
-              className='text-rose-500 underline'
+              to={isLogin ? ROUTE.signUp : ROUTE.login}
+              className='text-accent-500 underline'
             >
               {isLogin ? 'Sign Up' : 'Login'}
             </Link>

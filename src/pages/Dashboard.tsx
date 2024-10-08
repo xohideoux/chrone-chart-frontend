@@ -1,26 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import { Navigate } from 'react-router-dom';
 import { useUser } from '../hooks/user';
-import { LOCAL_TOKEN_KEY, ROUTES } from '../constants';
+import { ROUTE } from '../constants';
+import { Header, Filters, TasksList } from '../components';
 
 const Dashboard = observer(() => {
   const user = useUser();
 
-  const handleLogout = () => {
-    user.setUser(null);
-    user.setAuth(false);
-    localStorage.removeItem(LOCAL_TOKEN_KEY);
-  }
-
   if (!user.isAuth) {
-    return <Navigate to={ROUTES.login} />;
+    return <Navigate to={ROUTE.login} />;
   }
 
   return (
-    <div>
-      {user.user?.id}
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <main className='page_container'>
+      <Header user={user} />
+      <div className='flex flex-col w-full flex-grow gap-6 py-6'>
+        <Filters />
+        <TasksList />
+      </div>
+    </main>
   )
 })
 

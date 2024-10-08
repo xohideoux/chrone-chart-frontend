@@ -12,10 +12,18 @@
   @apply flex flex-col;
 }
 
+.page_container {
+  @apply flex flex-col w-screen h-screen px-14;
+}
+
 /* UI */
 
 .text_input {
-  @apply px-4 py-3 bg-slate-200 rounded-xl;
+  @apply px-4 py-3 bg-black-200 rounded-xl;
+}
+
+.filter_input {
+  @apply px-3 py-2 w-full sm:w-40 bg-white rounded-lg border border-black-600;
 }
 
 .button {
@@ -23,5 +31,9 @@
 }
 
 .button.rose {
-  @apply bg-rose-500 hover:bg-rose-600 text-white font-medium; 
+  @apply bg-accent-500 hover:bg-accent-600 text-white font-medium; 
+}
+
+.header_button {
+  @apply text-black-500 hover:text-accent-500;
 }

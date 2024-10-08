@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 interface AlertProps {
   message: string,
   handleClose: () => void,

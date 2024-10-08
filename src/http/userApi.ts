@@ -1,6 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { authHost, host } from '.';
 import { LOCAL_TOKEN_KEY } from '../constants';
+import { AuthResponse, TokenResponse, User } from '../types';
 
 export const registration = async (email: string, password: string) => {
   const url = 'api/users/registration';
@@ -9,7 +10,8 @@ export const registration = async (email: string, password: string) => {
     password
   };
 
-  return await host.post(url, body);
+  const response: AuthResponse = await host.post(url, body);
+  return response;
 }
 
 export const login = async (email: string, password: string) => {
@@ -19,7 +21,7 @@ export const login = async (email: string, password: string) => {
     password
   };
 
-  const resp = await host.post(url, body);
+  const resp: TokenResponse = await host.post(url, body);
 
   localStorage.setItem(LOCAL_TOKEN_KEY, resp.data.token);
   return resp;
@@ -28,7 +30,7 @@ export const login = async (email: string, password: string) => {
 export const checkAuth = async () => {
   const url = 'api/users/auth';
 
-  const { data } = await authHost.get(url);
+  const { data }: TokenResponse = await authHost.get(url);
   localStorage.setItem(LOCAL_TOKEN_KEY, data.token);
-  return jwtDecode(data.token);
+  return jwtDecode<User>(data.token);
 }

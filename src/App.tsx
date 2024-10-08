@@ -4,8 +4,9 @@ import { observer } from 'mobx-react-lite';
 import './App.css';
 import { useUser } from './hooks/user';
 import { checkAuth } from './http/userApi';
-import AppRouter from './components/AppRouter';
-import Loader from './components/Loader';
+import { Loader } from './components/';
+import { User } from './types';
+import AppRouter from './AppRouter';
 
 const App = observer(() => {
   const user = useUser();
@@ -14,7 +15,7 @@ const App = observer(() => {
 
   useEffect(() => {
     checkAuth()
-      .then(resp => {
+      .then((resp: User) => {
         user.setUser(resp);
         user.setAuth(true);
       })

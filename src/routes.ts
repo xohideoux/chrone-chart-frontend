@@ -1,21 +1,18 @@
-import { ROUTES } from './constants';
+import { ROUTE } from './constants';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 
-export const authRoutes = [
+export const routes = [
   {
-    path: ROUTES.dashboard,
+    path: ROUTE.dashboard,
     Component: Dashboard
-  }
-];
-
-export const publicRoutes = [
+  },
   {
-    path: ROUTES.login,
+    path: ROUTE.login,
     Component: Auth
   },
   {
-    path: ROUTES.signUp,
+    path: ROUTE.signUp,
     Component: Auth
   },
 ];
