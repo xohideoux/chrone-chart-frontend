@@ -23,7 +23,11 @@
 }
 
 .filter_input {
-  @apply px-3 py-2 w-full sm:w-40 bg-white rounded-lg border border-black-600;
+  @apply py-2 pl-10 pr-3 w-full sm:w-40 bg-white rounded-lg border border-black-600;
+}
+
+.filter_input.dropdown {
+  @apply whitespace-nowrap h-10 pr-10 text-black-400;
 }
 
 .button {

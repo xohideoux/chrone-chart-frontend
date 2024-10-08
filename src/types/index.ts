@@ -16,10 +16,14 @@ export interface TokenResponse {
   }
 }
 
-
 export interface UserStore {
   isAuth: boolean,
   user: User | null,
   setAuth: (arg0: boolean) => void,
   setUser: (arg0: User | null) => void,
+}
+
+export interface Status {
+  key: number,
+  label: string,
 }

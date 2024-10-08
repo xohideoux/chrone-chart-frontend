@@ -14,3 +14,18 @@ export const LOCAL_TOKEN_KEY = 'p0jGxBCa';
 
 export const TASKS_LABEL = 'Tasks';
 export const STATS_LABEL = 'Statistics';
+
+export const STATUSES = [
+  {
+    key: 1,
+    label: 'New'
+  },
+  {
+    key: 2,
+    label: 'In Progress'
+  },
+  {
+    key: 3,
+    label: 'Done'
+  },
+]
