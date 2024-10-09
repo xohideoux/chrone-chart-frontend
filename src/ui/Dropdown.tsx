@@ -3,14 +3,17 @@ import { CrossIcon, LabelIcon, ShevronIcon } from '../icons';
 import { STATUSES } from '../constants';
 import { Filters, Status } from '../types';
 
-const initialValue = 'Status';
+const initialValue = {
+  key: '',
+  label: 'Status'
+};
 
 interface DropdownProps {
   setFilters: Dispatch<SetStateAction<Filters>>,
 }
 
 const Dropdown = ({ setFilters }: DropdownProps) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialValue.label);
   const [isDropdown, setDropdown] = useState(false);
 
   const switchDropdown = () => {
@@ -18,14 +21,14 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
   }
 
   const handleOptionClick = (option: Status) => {
-    setFilters((prev: Filters) => ({ ...prev, status: option.label }));
+    setFilters((prev: Filters) => ({ ...prev, status: option.key }));
     setValue(option.label);
     setDropdown(false);
   }
 
   const resetValue = () => {
-    setValue(initialValue);
-    setFilters((prev: Filters) => ({ ...prev, status: '' }));
+    setValue(initialValue.label);
+    setFilters((prev: Filters) => ({ ...prev, status: 0 }));
   }
   return (
     <div className='relative'>
@@ -34,7 +37,7 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
       </div>
       <div
         className={`
-          ${value === initialValue && 'text-black-400'}
+          ${value === initialValue.label && 'text-black-400'}
           filter_input dropdown
         `}
       >
@@ -45,9 +48,9 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
           `${isDropdown && '-rotate-180'}
           transition-transform absolute flex_center top-2.5 right-3`
         }
-        onClick={value === initialValue ? switchDropdown : resetValue}
+        onClick={value === initialValue.label ? switchDropdown : resetValue}
       >
-        {value === initialValue ? <ShevronIcon /> : <CrossIcon />}
+        {value === initialValue.label ? <ShevronIcon /> : <CrossIcon />}
       </button>
       {isDropdown && <div className='absolute top-full left-0 right-0 pt-1'>
         <ul className='p-2 bg-white border border-black shadow-sm rounded-lg'>

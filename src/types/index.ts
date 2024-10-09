@@ -29,7 +29,7 @@ export interface Status {
 }
 
 export interface Filters {
-  status: string,
-  date_from: string,
-  date_to: string;
+  status: number,
+  dateFrom: string,
+  dateTo: string;
 }

@@ -2,7 +2,7 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDebounce } from '../hooks/debounce';
 import { DateIcon } from '../icons';
-import { formatDateInputValue } from '../utils';
+import { formatDateInputValue, formatDateToReq } from '../utils';
 import { Filters } from '../types';
 
 interface DateInputProps {
@@ -19,7 +19,7 @@ const DateInput = ({ label, setFilters }: DateInputProps) => {
   };
 
   useEffect(() => {
-    setFilters((prev: Filters) => ({ ...prev, [label]: debouncedValue }));
+    setFilters((prev: Filters) => ({ ...prev, [label]: formatDateToReq(debouncedValue) }));
   }, [debouncedValue, label, setFilters]);
 
   return (

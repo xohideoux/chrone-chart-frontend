@@ -10,3 +10,25 @@ export const formatDateInputValue = (value: string) => {
 
   return updatedValue
 }
+
+export const formatDateToReq = (dateString: string) => {
+  const parts = dateString.split('.');
+
+  if (parts.length !== 3) {
+    return '';
+    throw new Error("Invalid date format. Expected DD.MM.YYYY");
+  }
+
+  const day = parts[0];
+  const month = parts[1];
+  const year = parts[2];
+
+  return `${year}-${month}-${day}`;
+}
+
+export const getParamsFromObj = (obj: { [s: string]: unknown; } | ArrayLike<unknown>) => {
+  return Object.entries(obj)
+    .filter(([, value]) => value != false)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
+}
