@@ -51,7 +51,7 @@ const Dashboard = observer(() => {
 
   return (
     <main className='page_container'>
-      <Header user={userStore} handleOpenEditor={() => setEditor(true)} />
+      <Header user={userStore} handleOpenEditor={() => setEditor(true)} tasksData={tasksData} />
       <div className='flex flex-col w-full flex-grow gap-6 py-6'>
         <FiltersSection setFilters={setFilters} />
         <TasksList tasksData={tasksData} setTasksData={setTasksData} />

@@ -1,4 +1,4 @@
-const NotificationIcon = () => {
+const NotificationNewIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,8 +19,9 @@ const NotificationIcon = () => {
         strokeWidth="2"
         d="M15.17 29.441c.285 1.595.913 3.004 1.786 4.01C17.83 34.454 18.9 35 20 35c1.1 0 2.17-.545 3.044-1.55.873-1.005 1.5-2.414 1.786-4.009"
       ></path>
+      <circle cx="33" cy="10" r="10" fill="#FF5353"></circle>
     </svg>
-  )
+  );
 }
 
-export default NotificationIcon;
+export default NotificationNewIcon;
