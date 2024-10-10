@@ -5,7 +5,7 @@ interface AlertProps {
 
 const Alert = ({ message = '', handleClose }: AlertProps) => {
   return (
-    <div className='fixed inset-0 bg-slate-500/50 flex_center'>
+    <div className='fixed inset-0 bg-slate-500/50 flex_center z-50'>
       <div className='flex flex-col items-center p-8 rounded-2xl bg-white gap-6'>
         <p className='text-lg font-medium'>
           {message}

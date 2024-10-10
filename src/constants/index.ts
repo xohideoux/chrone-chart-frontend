@@ -17,15 +17,17 @@ export const STATS_LABEL = 'Statistics';
 
 export const STATUSES = [
   {
-    key: 1,
+    id: 1,
     label: 'New'
   },
   {
-    key: 2,
+    id: 2,
     label: 'In Progress'
   },
   {
-    key: 3,
+    id: 3,
     label: 'Done'
   },
-]
+];
+
+export const TASKS_PER_PAGE = 12;

@@ -4,7 +4,7 @@ import { STATUSES } from '../constants';
 import { Filters, Status } from '../types';
 
 const initialValue = {
-  key: '',
+  id: '',
   label: 'Status'
 };
 
@@ -21,7 +21,7 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
   }
 
   const handleOptionClick = (option: Status) => {
-    setFilters((prev: Filters) => ({ ...prev, status: option.key }));
+    setFilters((prev: Filters) => ({ ...prev, status: option.id }));
     setValue(option.label);
     setDropdown(false);
   }
@@ -54,10 +54,10 @@ const Dropdown = ({ setFilters }: DropdownProps) => {
       </button>
       {isDropdown && <div className='absolute top-full left-0 right-0 pt-1'>
         <ul className='p-2 bg-white border border-black shadow-sm rounded-lg'>
-          {STATUSES.map(({ key, label }) => (
+          {STATUSES.map(({ id, label }) => (
             <li
-              key={`status_${key}`}
-              onClick={() => handleOptionClick({ key, label })}
+              key={`status_${id}`}
+              onClick={() => handleOptionClick({ id, label })}
               className='text-black-400 hover:text-accent cursor-pointer'
             >
               {label}

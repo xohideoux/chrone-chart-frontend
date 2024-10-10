@@ -24,12 +24,36 @@ export interface UserStore {
 }
 
 export interface Status {
-  key: number,
+  id: number,
   label: string,
 }
 
 export interface Filters {
   status: number,
   dateFrom: string,
-  dateTo: string;
+  dateTo: string,
+}
+
+export interface Task {
+  id: number,
+  title: string,
+  deadline: string,
+  description: string,
+  status: number,
+  taskStatus: Status,
+  creatorUser: User,
+  assigneeUser: User,
+}
+
+export interface TasksData {
+  count: number,
+  rows: Task[],
+}
+
+export interface TaskForm {
+  title: string,
+  deadline: string,
+  description: string,
+  status: number | undefined,
+  assignee: number | undefined,
 }

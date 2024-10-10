@@ -3,6 +3,13 @@ import { authHost, host } from '.';
 import { LOCAL_TOKEN_KEY } from '../constants';
 import { AuthResponse, TokenResponse, User } from '../types';
 
+export const fetchUsers = async () => {
+  const url = 'api/users';
+
+  const response = await host.get(url);
+  return response;
+}
+
 export const registration = async (email: string, password: string) => {
   const url = 'api/users/registration';
   const body = {

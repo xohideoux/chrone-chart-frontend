@@ -6,6 +6,9 @@ import DateIcon from './Date';
 import LabelIcon from './Label';
 import ShevronIcon from './ShevronArrow';
 import CrossIcon from './Cross';
+import DotsIcon from './Dots';
+import DeleteIcon from './Delete';
+import EditIcon from './Edit';
 
 export {
   StatisticsIcon,
@@ -15,5 +18,8 @@ export {
   DateIcon,
   LabelIcon,
   ShevronIcon,
-  CrossIcon
+  CrossIcon,
+  DotsIcon,
+  DeleteIcon,
+  EditIcon,
 }

@@ -4,10 +4,11 @@ import { CreateIcon, LogoutIcon, NotificationIcon, StatisticsIcon } from '../ico
 import { UserStore } from '../types';
 
 interface HeaderProps {
-  user: UserStore;
+  user: UserStore,
+  handleOpenEditor: () => void,
 }
 
-const Header = ({ user }: HeaderProps) => {
+const Header = ({ user, handleOpenEditor }: HeaderProps) => {
   const location = useLocation();
   const currentPage = location.pathname.split('/')[1];
 
@@ -21,7 +22,7 @@ const Header = ({ user }: HeaderProps) => {
     <header className='flex_between py-5 border-b border-black-600'>
       <h1 className='text-2xl font-bold capitalize'>{currentPage}</h1>
       <div className='flex items-center gap-6'>
-        <button className='header_button'>
+        <button className='header_button' onClick={handleOpenEditor}>
           <CreateIcon />
         </button>
         <button className='header_button'>

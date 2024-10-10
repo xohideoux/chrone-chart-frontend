@@ -32,3 +32,10 @@ export const getParamsFromObj = (obj: { [s: string]: unknown; } | ArrayLike<unkn
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
 }
+
+export const getNameFromEmail = (email: string) => (email.split('@')[0]);
+
+export const formatDateToString = (dateString: string) => {
+  const date = new Date(dateString);
+  return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
+}
