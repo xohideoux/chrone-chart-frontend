@@ -6,7 +6,7 @@ import { AuthResponse, TokenResponse, User } from '../types';
 export const fetchUsers = async () => {
   const url = 'api/users';
 
-  const response = await host.get(url);
+  const response: { data: { id: number; email: string; }[] } = await host.get(url);
   return response;
 }
 

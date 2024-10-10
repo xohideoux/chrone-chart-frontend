@@ -46,6 +46,6 @@ export const deleteTask = async (taskId: number) => {
 export const fetchStatuses = async () => {
   const url = `api/tasks/statuses`;
 
-  const { data } = await authHost.get(url);
+  const { data }: {data: {id: number, label: string}[]} = await authHost.get(url);
   return data;
 }

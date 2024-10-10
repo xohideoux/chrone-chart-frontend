@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { CrossIcon, ShevronIcon } from '../icons';
-import { Status, TaskForm, User } from '../types';
+import { Status, TaskForm } from '../types';
 import { fetchUsers } from '../http/userApi';
 import { fetchStatuses } from '../http/taskApi';
 import { getNameFromEmail } from '../utils';
 
 interface EditorDropdownProps {
   type: string,
-  form: TaskForm
-  setForm: Dispatch<SetStateAction<TaskForm>>,
+  form: any
+  setForm: Dispatch<SetStateAction<any>>,
+}
+
+interface Option {
+  id: number,
+  label: string
 }
 
 const EditorDropdown = ({ type, form, setForm }: EditorDropdownProps) => {
-  const [options, setOptions] = useState([])
-  const [value, setValue] = useState(form[type]);
+  const [options, setOptions] = useState<Option[]>([])
+  const [value, setValue] = useState(type === 'status' ? form.status : form.assignee);
   const [isDropdown, setDropdown] = useState(false);
 
   useEffect(() => {
@@ -23,9 +28,9 @@ const EditorDropdown = ({ type, form, setForm }: EditorDropdownProps) => {
     if (type === 'assignee') {
       fetchUsers()
         .then((resp) => {
-          let users = [];
+          const users: { id: number; label: string; }[] = [];
 
-          resp.data.forEach((item) => {
+          resp.data.forEach((item: { id: any; email: string; }) => {
             const user = {
               id: item.id,
               label: getNameFromEmail(item.email)
