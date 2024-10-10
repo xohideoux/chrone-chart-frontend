@@ -28,9 +28,9 @@ const formatToISO8601 = (dateString: string) => {
 const Editor = ({ task, handleClose }: EditorProps) => {
   console.log(task);
   const [form, setForm] = useState({
-    title: task?.title,
+    title: task?.title || '',
     deadline: task ? formatDateToString(task?.deadline) : undefined,
-    description: task?.description,
+    description: task?.description || '',
     status: task?.taskStatus.label,
     assignee: task ? getNameFromEmail(task?.assigneeUser.email) : undefined,
   });
@@ -57,12 +57,12 @@ const Editor = ({ task, handleClose }: EditorProps) => {
     setForm((prev) => ({ ...prev, deadline: formatDateInputValue(evt.target.value) }))
   };
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (evt) => {
-    evt.preventDefault();
+  const onSubmit: FormEventHandler<HTMLFormElement> = async () => {
+    // evt.preventDefault();
     
     const body = {
       ...form,
-      deadline: formatToISO8601(form.deadline || ''),
+      deadline: form.deadline ? formatToISO8601(form.deadline) : '',
       status: typeof form.status === 'number' ? form.status : task?.taskStatus.id,
       assignee: typeof form.assignee === 'number' ? form.assignee : task?.assigneeUser.id
     };

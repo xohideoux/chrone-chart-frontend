@@ -8,17 +8,19 @@ import Editor from './Editor';
 import Loader from './Loader';
 
 interface TasksListProps {
+  isAdmin: boolean,
   tasksData: TasksData | null,
   setTasksData: Dispatch<SetStateAction<TasksData | null>>
 }
 
 interface CardProps {
+  isAdmin: boolean
   task: Task,
   tasksData: TasksData | null,
   setTasksData: Dispatch<SetStateAction<TasksData | null>>
 }
 
-const Card = memo(({ task, tasksData, setTasksData }: CardProps) => {
+const Card = memo(({ isAdmin, task, tasksData, setTasksData }: CardProps) => {
   const [isEditor, setEditor] = useState(false);
 
   const statusToColor: { [key: string]: string } = {
@@ -53,9 +55,9 @@ const Card = memo(({ task, tasksData, setTasksData }: CardProps) => {
             <button onClick={() => setEditor(true)}>
               {<EditIcon />}
             </button>
-            <button onClick={handleDelete}>
+            {isAdmin && <button onClick={handleDelete}>
               {<DeleteIcon />}
-            </button>
+            </button>}
           </div>
         </div>
         <p
@@ -68,7 +70,7 @@ const Card = memo(({ task, tasksData, setTasksData }: CardProps) => {
         </p>
         <div className='text-xs'>
           <p><b>Cretor:</b> {getNameFromEmail(task.creatorUser.email)}</p>
-          <p><b>Assignee:</b> {getNameFromEmail(task.assigneeUser.email)}</p>
+          {isAdmin && <p><b>Assignee:</b> {getNameFromEmail(task.assigneeUser.email)}</p>}
           <p><b>Deadline:</b> {formatDateToString(task.deadline)}</p>
           <p className='mt-2 tex-xs break-words line-clamp-5'>
             {task.description}
@@ -80,7 +82,7 @@ const Card = memo(({ task, tasksData, setTasksData }: CardProps) => {
   )
 });
 
-const TasksList = ({ tasksData, setTasksData }: TasksListProps) => {
+const TasksList = ({ isAdmin, tasksData, setTasksData }: TasksListProps) => {
 
   if (!tasksData) return (
     <div className='flex_center flex-grow'>
@@ -91,7 +93,7 @@ const TasksList = ({ tasksData, setTasksData }: TasksListProps) => {
   return (
     <div className="flex-grow grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {tasksData.rows.map((task) => (
-        <Card key={`task_${task.id}`} task={task} tasksData={tasksData} setTasksData={setTasksData} />
+        <Card key={`task_${task.id}`} isAdmin={isAdmin} task={task} tasksData={tasksData} setTasksData={setTasksData} />
       ))}
     </div>
   )

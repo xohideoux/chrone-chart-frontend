@@ -54,7 +54,7 @@ const Dashboard = observer(() => {
       <Header user={userStore} handleOpenEditor={() => setEditor(true)} tasksData={tasksData} />
       <div className='flex flex-col w-full flex-grow gap-6 py-6'>
         <FiltersSection setFilters={setFilters} />
-        <TasksList tasksData={tasksData} setTasksData={setTasksData} />
+        <TasksList isAdmin={isAdmin} tasksData={tasksData} setTasksData={setTasksData} />
         {tasksData &&
           <Pagination
             total={tasksData?.count}
@@ -65,8 +65,6 @@ const Dashboard = observer(() => {
         }
       </div>
       {isEditor && <Editor
-        tasksData={tasksData}
-        setTasksData={setTasksData}
         handleClose={() => setEditor(false)}
       />}
     </main>
