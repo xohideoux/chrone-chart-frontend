@@ -29,10 +29,10 @@ const Editor = ({ task, handleClose }: EditorProps) => {
   console.log(task);
   const [form, setForm] = useState({
     title: task?.title,
-    deadline: formatDateToString(task?.deadline || ''),
+    deadline: task ? formatDateToString(task?.deadline) : undefined,
     description: task?.description,
     status: task?.taskStatus.label,
-    assignee: getNameFromEmail(task?.assigneeUser.email || ''),
+    assignee: task ? getNameFromEmail(task?.assigneeUser.email) : undefined,
   });
 
   useEffect(() => {

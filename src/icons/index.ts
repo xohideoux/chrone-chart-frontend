@@ -9,6 +9,7 @@ import CrossIcon from './Cross';
 import DotsIcon from './Dots';
 import DeleteIcon from './Delete';
 import EditIcon from './Edit';
+import ArrowBackIcon from './ArrowBack';
 
 export {
   StatisticsIcon,
@@ -22,4 +23,5 @@ export {
   DotsIcon,
   DeleteIcon,
   EditIcon,
+  ArrowBackIcon,
 }
