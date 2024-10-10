@@ -57,9 +57,9 @@ const Editor = ({ task, handleClose }: EditorProps) => {
     setForm((prev) => ({ ...prev, deadline: formatDateInputValue(evt.target.value) }))
   };
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = async () => {
-    // evt.preventDefault();
-    
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (evt) => {
+    evt.preventDefault();
+
     const body = {
       ...form,
       deadline: form.deadline ? formatToISO8601(form.deadline) : '',
@@ -69,10 +69,18 @@ const Editor = ({ task, handleClose }: EditorProps) => {
 
     if (task === undefined) {
       await createTask(body)
-        .then((resp) => console.log(resp));
+        .then((resp) => console.log(resp))
+        .finally(() => {
+          handleClose();
+          window.location.reload();
+        })
     } else {
       await editTask(body, task.id)
-        .then((resp) => console.log(resp));
+        .then((resp) => console.log(resp))
+        .finally(() => {
+          handleClose();
+          window.location.reload();
+        })
     }
   }
 
