@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Context } from '../main';
 
+// Custom hook to access user context
 export const useUser = () => {
   const context = useContext(Context);
 

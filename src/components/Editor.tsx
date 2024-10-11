@@ -9,6 +9,7 @@ interface EditorProps {
   handleClose: () => void,
 }
 
+// Function to format date to ISO 8601
 const formatToISO8601 = (dateString: string) => {
   const [day, month, year] = dateString.split('.').map(Number);
 

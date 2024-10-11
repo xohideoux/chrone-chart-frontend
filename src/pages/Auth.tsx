@@ -65,6 +65,7 @@ const Auth = observer(() => {
     }
   }
 
+  // Redirect to dashboard if user is already authenticated
   if (user.isAuth) {
     return <Navigate to={ROUTE.dashboard} />;
   }

@@ -8,21 +8,25 @@ interface PaginationProps {
 }
 
 const Pagination = ({ total, currPage, setCurrPage, isLoading }: PaginationProps) => {
+  // Calculate the total number of pages based on total items and items per page
   const pagesAmount: number = Math.ceil(total / TASKS_PER_PAGE);
 
   const onClick = (page: number): void => {
+    // Prevent action if loading or the same page is clicked
     if (isLoading) return;
     if (currPage === page) return;
     setCurrPage(page);
   };
 
   const handlePaginationPrevClick = (): void => {
+    // Prevent action if loading or the same page is clicked
     if (isLoading) return;
     if (currPage === 0) return;
     setCurrPage(prev => prev - 1);
   };
 
   const handlePaginationNextClick = (): void => {
+    // Prevent action if loading or the same page is clicked
     if (isLoading) return;
     if (currPage === pagesAmount - 1) return;
     setCurrPage(prev => prev + 1);

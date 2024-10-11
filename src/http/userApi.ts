@@ -29,7 +29,7 @@ export const login = async (email: string, password: string) => {
   };
 
   const resp: TokenResponse = await host.post(url, body);
-
+  // Storing the token in local storage
   localStorage.setItem(LOCAL_TOKEN_KEY, resp.data.token);
   return resp;
 }
@@ -38,6 +38,8 @@ export const checkAuth = async () => {
   const url = 'api/users/auth';
 
   const { data }: TokenResponse = await authHost.get(url);
+  // Storing the token in local storage
   localStorage.setItem(LOCAL_TOKEN_KEY, data.token);
+  // Decoding the token to retrieve user information
   return jwtDecode<User>(data.token);
 }

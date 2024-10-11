@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Filters, TasksData } from '../types';
-import StatisticsList from '../components/StatisticsList';
+import StatisticsList from './StatisticsList';
 
 const formatDate = (date: Date) => {
   const year = date.getFullYear();

@@ -10,7 +10,7 @@ import { useDebounce } from '../hooks/debounce';
 import { TasksData } from '../types';
 import Editor from '../components/Editor';
 import Pagination from '../components/Pagination';
-import Statistics from './Statistics';
+import Statistics from '../components/Statistics';
 
 const initiaFilters = {
   status: 0,
@@ -30,10 +30,11 @@ const Dashboard = observer(() => {
   const [currPage, setCurrPage] = useState(0);
   const [currSection, setCurrSection] = useState<'Tasks' | 'Statistics'>('Tasks');
 
+  // Debouncing filters to limit API calls
   const debouncedFilters = useDebounce(filters, 1000);
 
   useEffect(() => {
-
+    // Constructing filter parameters
     const filtersParams = getParamsFromObj(debouncedFilters);
 
     const page = currPage + 1;
@@ -47,6 +48,7 @@ const Dashboard = observer(() => {
     }
   }, [currPage, debouncedFilters, filters, isAdmin, user, userId]);
 
+  // Redirect to login if user is not authenticated
   if (!userStore.isAuth) {
     return <Navigate to={ROUTE.login} />;
   }

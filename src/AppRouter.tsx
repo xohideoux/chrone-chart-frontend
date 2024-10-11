@@ -12,6 +12,7 @@ const AppRouter = () => {
           element={<Component />}
         />
       ))}
+      {/* Redirect any unknown routes to the dashboard */}
       <Route path="*" element={<Navigate to={ROUTE.dashboard} />} />
     </Routes>
   )

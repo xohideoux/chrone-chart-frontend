@@ -14,9 +14,9 @@ interface HeaderProps {
 
 const Header = ({ user, handleOpenEditor, tasksData, currSection, setCurrSection }: HeaderProps) => {
   const isStatisticsPage = currSection === 'Statistics';
-
   const [isNotificationsList, setNotificationsList] = useState(false);
 
+  // Calculate date range for notifications
   const dateFrom = new Date();
   dateFrom.setDate(dateFrom.getDate() - 1);
   dateFrom.setHours(23);

@@ -9,11 +9,11 @@ export const fetchTasks = async (
   let params = `?limit=${limit}&page=${page}`;
 
   if (filters !== '') {
-    params += `&${filters}`;
+    params += `&${filters}`; // Adding filters to the params if provided
   }
 
   if (!isAdmin && userId !== undefined) {
-    params += `&assignee=${userId}`;
+    params += `&assignee=${userId}`; // Filtering tasks by current user if not an admin
   }
 
   const url = `api/tasks${params}`;

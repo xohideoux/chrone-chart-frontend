@@ -8,12 +8,14 @@ import { Loader } from './components/';
 import { User } from './types';
 import AppRouter from './AppRouter';
 
+// Main App component, wrapped with MobX observer for state reactivity
 const App = observer(() => {
   const user = useUser();
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+     // Check user authentication
     checkAuth()
       .then((resp: User) => {
         user.setUser(resp);
@@ -22,12 +24,14 @@ const App = observer(() => {
       .finally(() => setLoading(false));
   }, [])
 
+  // If loading, show the loader component
   if (loading) return (
     <div className='fixed inset-0 flex_center'>
       <Loader />
     </div>
   )
 
+  // Render application with routing
   return (
     <BrowserRouter>
       <AppRouter />

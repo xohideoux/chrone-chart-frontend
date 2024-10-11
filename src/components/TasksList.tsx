@@ -23,6 +23,7 @@ interface CardProps {
 const Card = memo(({ isAdmin, task, tasksData, setTasksData }: CardProps) => {
   const [isEditor, setEditor] = useState(false);
 
+  // Map task status IDs to colors
   const statusToColor: { [key: string]: string } = {
     1: '#C1D6FD',
     2: '#FBEDBE',
@@ -36,6 +37,7 @@ const Card = memo(({ isAdmin, task, tasksData, setTasksData }: CardProps) => {
 
         if (!updatedTasks) return;
 
+        // Update the tasks state with the new list
         setTasksData((prev) => ({
           rows: updatedTasks,
           count: prev ? prev.count : 0
@@ -84,6 +86,7 @@ const Card = memo(({ isAdmin, task, tasksData, setTasksData }: CardProps) => {
 
 const TasksList = ({ isAdmin, tasksData, setTasksData }: TasksListProps) => {
 
+  // Loader while fetching tasks
   if (!tasksData) return (
     <div className='flex_center flex-grow'>
       <Loader />
