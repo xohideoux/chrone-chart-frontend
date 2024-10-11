@@ -1,20 +1,19 @@
-import { useLocation } from 'react-router-dom';
 import { LOCAL_TOKEN_KEY } from '../constants';
 import { ArrowBackIcon, CreateIcon, LogoutIcon, NotificationIcon, NotificationIconNew, StatisticsIcon } from '../icons';
 import { TasksData, UserStore } from '../types';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import NotificationsList from './NotificationsList';
 
 interface HeaderProps {
   user: UserStore,
   handleOpenEditor?: () => void,
   tasksData?: TasksData | null,
+  currSection: 'Tasks' | 'Statistics',
+  setCurrSection: Dispatch<SetStateAction<'Tasks' | 'Statistics'>>,
 }
 
-const Header = ({ user, handleOpenEditor, tasksData }: HeaderProps) => {
-  const location = useLocation();
-  const currentPage = location.pathname.split('/')[1];
-  const isStatisticsPage = currentPage === 'statistics';
+const Header = ({ user, handleOpenEditor, tasksData, currSection, setCurrSection }: HeaderProps) => {
+  const isStatisticsPage = currSection === 'Statistics';
 
   const [isNotificationsList, setNotificationsList] = useState(false);
 
@@ -34,13 +33,11 @@ const Header = ({ user, handleOpenEditor, tasksData }: HeaderProps) => {
     localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
 
-  console.log(notificationTasks);
-
   return (
     <header className='flex_between py-5 border-b border-black-600'>
       <div className='flex items-center gap-2'>
-        {isStatisticsPage && <a href='/dashboard'><ArrowBackIcon /></a>}
-        <h1 className='text-2xl font-bold capitalize'>{currentPage}</h1>
+        {isStatisticsPage && <button onClick={() => setCurrSection('Tasks')}><ArrowBackIcon /></button>}
+        <h1 className='text-2xl font-bold capitalize'>{currSection}</h1>
       </div>
       <div className='flex items-center gap-6'>
         {!isStatisticsPage && <button className='header_button' onClick={handleOpenEditor}>
@@ -52,9 +49,9 @@ const Header = ({ user, handleOpenEditor, tasksData }: HeaderProps) => {
             : <NotificationIcon />
           }
         </button>}
-        {!isStatisticsPage && <a href='/statistics' className='header_button'>
+        {!isStatisticsPage && <button className='header_button' onClick={() => setCurrSection('Statistics')}>
           <StatisticsIcon />
-        </a>}
+        </button>}
         <button className='header_button' onClick={handleLogout}>
           <LogoutIcon />
         </button>

@@ -10,6 +10,7 @@ import { useDebounce } from '../hooks/debounce';
 import { TasksData } from '../types';
 import Editor from '../components/Editor';
 import Pagination from '../components/Pagination';
+import Statistics from './Statistics';
 
 const initiaFilters = {
   status: 0,
@@ -27,6 +28,7 @@ const Dashboard = observer(() => {
   const [filters, setFilters] = useState(initiaFilters);
   const [isEditor, setEditor] = useState(false);
   const [currPage, setCurrPage] = useState(0);
+  const [currSection, setCurrSection] = useState<'Tasks' | 'Statistics'>('Tasks');
 
   const debouncedFilters = useDebounce(filters, 1000);
 
@@ -51,10 +53,22 @@ const Dashboard = observer(() => {
 
   return (
     <main className='page_container'>
-      <Header user={userStore} handleOpenEditor={() => setEditor(true)} tasksData={tasksData} />
+      <Header
+        user={userStore}
+        handleOpenEditor={() => setEditor(true)}
+        tasksData={tasksData}
+        currSection={currSection}
+        setCurrSection={setCurrSection}
+      />
       <div className='flex flex-col w-full flex-grow gap-6 py-6'>
-        <FiltersSection setFilters={setFilters} />
-        <TasksList isAdmin={isAdmin} tasksData={tasksData} setTasksData={setTasksData} />
+        {currSection === 'Tasks'
+          ? <>
+            <FiltersSection setFilters={setFilters} />
+            <TasksList isAdmin={isAdmin} tasksData={tasksData} setTasksData={setTasksData} />
+          </>
+          : <>
+            <Statistics filters={filters} setFilters={setFilters} tasksData={tasksData} />
+          </>}
         {tasksData &&
           <Pagination
             total={tasksData?.count}

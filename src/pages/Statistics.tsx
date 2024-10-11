@@ -1,14 +1,5 @@
-import { observer } from 'mobx-react-lite';
-import { Navigate } from 'react-router-dom';
-import { useUser } from '../hooks/user';
-import { ROUTE, TASKS_PER_PAGE, USER_CODE } from '../constants';
-import { Header } from '../components';
-import { useEffect, useState } from 'react';
-import { getParamsFromObj } from '../utils';
-import { fetchTasks } from '../http/taskApi';
-import { useDebounce } from '../hooks/debounce';
-import { TasksData } from '../types';
-import Pagination from '../components/Pagination';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Filters, TasksData } from '../types';
 import StatisticsList from '../components/StatisticsList';
 
 const formatDate = (date: Date) => {
@@ -49,38 +40,22 @@ const timeRanges = [
 ]
 
 const initiaFilters = {
+  status: 0,
   dateFrom: weekAgoFormatted,
   dateTo: nowFormatted,
 }
 
-const Statistics = observer(() => {
-  const userStore = useUser();
-  const user = userStore.user;
-  const isAdmin = user?.role === USER_CODE.admin;
-  const userId = user?.id;
+interface StatisticsProps {
+  filters: Filters,
+  setFilters: Dispatch<SetStateAction<Filters>>,
+  tasksData: TasksData | null,
+}
 
-  const [tasksData, setTasksData] = useState<TasksData | null>(null);
-  const [filters, setFilters] = useState(initiaFilters);
-  const [currPage, setCurrPage] = useState(0);
-
-  const debouncedFilters = useDebounce(filters, 500);
+const Statistics = ({filters, setFilters, tasksData}: StatisticsProps) => {
 
   useEffect(() => {
-    const filtersParams = getParamsFromObj(debouncedFilters);
-
-    const page = currPage + 1;
-
-    fetchTasks(filtersParams, userId, isAdmin, TASKS_PER_PAGE, page)
-      .then((resp) => {
-        setTasksData(resp);
-      })
-      .catch((err) => alert(err));
-
-  }, [currPage, debouncedFilters, filters, isAdmin, user, userId]);
-
-  if (!userStore.isAuth) {
-    return <Navigate to={ROUTE.login} />;
-  }
+    setFilters(initiaFilters);
+  }, [])
 
   const handleRangeClick = (value: string) => {
     setFilters((prev) => ({
@@ -91,7 +66,6 @@ const Statistics = observer(() => {
 
   return (
     <main className='page_container'>
-      <Header user={userStore} />
       <div className='flex flex-col w-full flex-grow gap-6 py-6'>
         <section className='flex items-center gap-4'>
           {timeRanges.map((range, index) => (
@@ -110,17 +84,9 @@ const Statistics = observer(() => {
           ))}
         </section>
         <StatisticsList tasksData={tasksData} />
-        {tasksData &&
-          <Pagination
-            total={tasksData?.count}
-            currPage={currPage}
-            setCurrPage={setCurrPage}
-            isLoading={!tasksData}
-          />
-        }
       </div>
     </main>
   )
-});
+};
 
 export default Statistics;
